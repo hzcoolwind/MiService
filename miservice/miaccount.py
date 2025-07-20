@@ -177,9 +177,9 @@ class MiAccount:
                     resp = await self.verify_ticket(self.verify, ticket)
                     location = resp.get('location', '')
                     if location:
-                        resp = await self.session.get(location, allow_redirects=True)
+                        resp = await self.request(location, 'GET', allow_redirects=True)
                         resp = await self._serviceLogin(f'serviceLogin?sid={sid}&_json=true')                       
-                        location = data.get('location', '')
+                        location = resp.get('location', '')
 
                         if not location:
                             if resp['code'] != 0:
